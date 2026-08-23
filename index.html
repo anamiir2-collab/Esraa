@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>إسراء أشرف… حكاية أجمل من سندريلا</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@400;600;700&family=Tajawal:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-1: #fdf6f8;
+    --bg-2: #fbe3eb;
+    --bg-3: #f5c2d3;
+    --paper: #fffcfd;
+    --paper-edge: #f8e1eb;
+    --text: #3c2431;
+    --text-light: #7a5066;
+    --accent: #9a1f48;
+    --accent-soft: #c84b72;
+    --accent-light: #e67d9d;
+    --rose: #d85a81;
+    --rose-light: #f7d6e0;
+    --gold: #c59b27;
+    --gold-light: #f3e5ab;
+    --gold-border: #d4af37;
+    --border: #eed2dd;
+    --shadow-soft: rgba(154, 31, 72, 0.08);
+    --shadow-medium: rgba(154, 31, 72, 0.15);
+  }
+
+  body {
+    font-family: 'Amiri', serif;
+    background: radial-gradient(circle at center, #fdf6f8 0%, #fbe3eb 50%, #f3c9d7 100%);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Islamic Andalusian Background Pattern Overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(var(--accent-light) 0.6px, transparent 0.6px), radial-gradient(var(--gold) 0.6px, #fdf6f8 0.6px);
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Floating stars & motifs */
+  .bg-flowers {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .bg-flowers .flower {
+    position: absolute;
+    font-size: 1.5rem;
+    color: var(--accent-soft);
+    opacity: 0.15;
+    animation: floatFlower linear infinite;
+  }
+  @keyframes floatFlower {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.15; }
+    90% { opacity: 0.15; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* Progress bar */
+  .progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(255,255,255,0.4);
+    z-index: 1000;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--rose), var(--gold-border));
+    width: 0%;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px var(--gold-light);
+  }
+
+  /* Book container */
+  .book-wrapper {
+    position: relative;
+    z-index: 1;
+    width: 92vw;
+    max-width: 520px;
+    height: 84vh;
+    max-height: 760px;
+    perspective: 1800px;
+  }
+
+  /* Page */
+  .page {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, var(--paper) 0%, #fdf0f4 100%);
+    border-radius: 12px 24px 24px 12px;
+    box-shadow:
+      -4px 0 20px var(--shadow-soft),
+      0 10px 35px var(--shadow-medium),
+      0 0 0 1px var(--border),
+      inset 0 0 20px rgba(212, 175, 55, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform-origin: right center;
+    transition: transform 0.65s cubic-bezier(0.4, 0.0, 0.2, 1),
+                opacity 0.65s cubic-bezier(0.4, 0.0, 0.2, 1);
+    opacity: 1;
+    backface-visibility: hidden;
+  }
+
+  /* Spine shadow */
+  .page::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 28px;
+    background: linear-gradient(270deg, rgba(154, 31, 72, 0.06), transparent);
+    z-index: 2;
+    pointer-events: none;
+    border-radius: 0 12px 12px 0;
+  }
+
+  /* Andalusian Decorative Frame Border */
+  .page-border {
+    position: absolute;
+    inset: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px 18px 18px 8px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .page-border::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px dashed var(--gold-border);
+    border-radius: 6px 16px 16px 6px;
+    opacity: 0.6;
+  }
+
+  /* Andalusian Corner Arc Motifs */
+  .corner-decor {
+    position: absolute;
+    z-index: 3;
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  .corner-decor svg { width: 100%; height: 100%; fill: var(--gold-border); }
+  
+  .corner-decor.top-left { top: 14px; left: 14px; }
+  .corner-decor.top-right { top: 14px; right: 14px; transform: scaleX(-1); }
+  .corner-decor.bottom-left { bottom: 45px; left: 14px; transform: scaleY(-1); }
+  .corner-decor.bottom-right { bottom: 45px; right: 14px; transform: scale(-1); }
+
+  /* Page states */
+  .page.active { transform: rotateY(0deg); opacity: 1; z-index: 10; }
+  .page.flip-out { transform: rotateY(25deg) scale(0.95); opacity: 0; z-index: 5; }
+  .page.flip-in { transform: rotateY(-25deg) scale(0.95); opacity: 0; z-index: 5; }
+  .page.hidden-left { transform: rotateY(30deg) scale(0.9); opacity: 0; z-index: 0; pointer-events: none; }
+  .page.hidden-right { transform: rotateY(-30deg) scale(0.9); opacity: 0; z-index: 0; pointer-events: none; }
+
+  /* Page content area */
+  .page-content {
+    flex: 1;
+    padding: 48px 36px 15px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  /* Cover Design - Andalusian Princess Style */
+  .cover-content {
+    justify-content: center;
+    text-align: center;
+    gap: 12px;
+    padding: 20px 22px;
+  }
+
+  .cover-arch {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cover-title {
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.6;
+    text-shadow: 0 1px 2px rgba(154,31,72,0.1);
+  }
+
+  .cover-title .highlight {
+    display: block;
+    font-family: 'Reem Kufi', sans-serif;
+    font-size: 1.25rem;
+    color: var(--gold);
+    font-weight: 600;
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .cover-line {
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-border), var(--accent), var(--gold-border), transparent);
+    margin: 10px auto;
+  }
+
+  .cover-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    line-height: 1.8;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 400;
+  }
+
+  .start-btn {
+    margin-top: 15px;
+    padding: 13px 46px;
+    background: linear-gradient(135deg, var(--accent), var(--rose));
+    color: var(--gold-light);
+    border: 1px solid var(--gold-border);
+    border-radius: 50px;
+    font-family: 'Aref Ruqaa', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    box-shadow: 0 4px 20px rgba(154,31,72,0.25);
+    opacity: 0;
+    transform: translateY(12px);
+    letter-spacing: 1px;
+  }
+  .start-btn.visible { opacity: 1; transform: translateY(0); }
+  .start-btn:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #7a1638, var(--accent));
+    box-shadow: 0 8px 25px rgba(154,31,72,0.35);
+  }
+
+  /* Story text */
+  .story-text {
+    font-size: 1.25rem;
+    line-height: 2.3;
+    color: var(--text);
+    text-align: justify;
+    width: 100%;
+    min-height: 100px;
+    font-family: 'Amiri', serif;
+  }
+  .story-text p {
+    margin-bottom: 0.95em;
+  }
+  .story-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Decorative Drop Cap / Andalusian Emblem for first letters */
+  .story-text p:first-child::first-letter {
+    font-family: 'Aref Ruqaa', serif;
+    font-size: 1.8em;
+    color: var(--accent);
+    font-weight: bold;
+    float: right;
+    margin-left: 8px;
+    line-height: 1;
+  }
+
+  .story-text .typed-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.15em;
+    background: var(--accent);
+    margin-right: 1px;
+    vertical-align: middle;
+    animation: cursorBlink 1s ease-in-out infinite;
+  }
+  @keyframes cursorBlink {
+    0%, 45% { opacity: 1; }
+    50%, 95% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  /* Page number */
+  .page-number {
+    text-align: center;
+    padding: 8px 0 16px;
+    font-size: 0.85rem;
+    color: var(--gold);
+    position: relative;
+    z-index: 3;
+    opacity: 0.9;
+    font-family: 'Aref Ruqaa', serif;
+    letter-spacing: 1px;
+  }
+
+  /* Navigation */
+  .nav-buttons {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 16px;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  .nav-buttons.visible { opacity: 1; pointer-events: all; }
+  .nav-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold-border);
+    background: rgba(255, 252, 253, 0.9);
+    color: var(--accent);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(154,31,72,0.12);
+  }
+  .nav-btn:hover {
+    background: linear-gradient(135deg, var(--accent), var(--rose));
+    color: var(--gold-light);
+    border-color: var(--accent);
+    transform: scale(1.1);
+  }
+  .nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none !important;
+    background: rgba(255,255,255,0.5);
+    box-shadow: none;
+  }
+
+  /* Page ornament */
+  .page-ornament {
+    text-align: center;
+    margin: 10px 0;
+    opacity: 0.6;
+    color: var(--gold);
+    font-size: 1.1rem;
+  }
+
+  /* End page */
+  .end-content { text-align: center; gap: 10px; }
+  .end-content .end-message {
+    font-family: 'Aref Ruqaa', serif;
+    font-size: 1.4rem;
+    color: var(--accent);
+    line-height: 2.2;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+
+  /* Loading Overlay */
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(160deg, #fdf6f8, #fbe3eb, #f5c2d3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    z-index: 2000;
+    transition: opacity 0.6s ease;
+  }
+  .loading-overlay.fade-out { opacity: 0; pointer-events: none; }
+  .loading-text {
+    color: var(--accent);
+    font-family: 'Aref Ruqaa', serif;
+    font-size: 1.4rem;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* Touch hint */
+  .touch-hint {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--accent);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.85rem;
+    z-index: 100;
+    animation: hintFade 3.5s ease-in-out forwards;
+    pointer-events: none;
+    white-space: nowrap;
+    background: rgba(255,255,255,0.85);
+    padding: 6px 18px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+  @keyframes hintFade {
+    0% { opacity: 0; transform: translateX(-50%) translateY(8px); }
+    15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  }
+
+  /* Scrollbar */
+  .page-content::-webkit-scrollbar { width: 3px; }
+  .page-content::-webkit-scrollbar-track { background: transparent; }
+  .page-content::-webkit-scrollbar-thumb { background: var(--rose-light); border-radius: 3px; }
+
+  /* Tap zones */
+  .tap-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    z-index: 20;
+    cursor: pointer;
+  }
+  .tap-zone.left { left: 0; }
+  .tap-zone.right { right: 0; }
+
+  /* Mobile adjustments */
+  @media (max-width: 480px) {
+    .book-wrapper { width: 95vw; height: 86vh; }
+    .page-content { padding: 38px 24px 12px 24px; }
+    .story-text { font-size: 1.12rem; line-height: 2.15; }
+    .cover-title { font-size: 1.85rem; }
+    .cover-title .highlight { font-size: 1.1rem; }
+    .cover-subtitle { font-size: 0.95rem; }
+    .start-btn { padding: 11px 36px; font-size: 1.1rem; }
+    .nav-btn { width: 44px; height: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Background Floating Motifs -->
+<div class="bg-flowers" id="bgFlowers"></div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="page-ornament" style="font-size:2.5rem;">❖</div>
+  <span class="loading-text">جارٍ فتح الدفتر الأندلسي...</span>
+</div>
+
+<!-- Progress Bar -->
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- Book Container -->
+<div class="book-wrapper" id="bookContainer"></div>
+
+<!-- Nav Buttons -->
+<div class="nav-buttons" id="navButtons">
+  <button class="nav-btn" id="prevBtn" title="السابقة">▶</button>
+  <button class="nav-btn" id="nextBtn" title="التالية">◀</button>
+</div>
+
+<!-- Touch Hint -->
+<div class="touch-hint" id="touchHint" style="display:none;">اسحبي لليسار أو اليمين لقلب الصفحة 🌸</div>
+
+<script>
+// ===== BACKGROUND MOTIFS =====
+(function createBgFlowers() {
+  const container = document.getElementById('bgFlowers');
+  const flowers = ['❖', '✦', '✧', '🌸', '✽'];
+  for (let i = 0; i < 15; i++) {
+    const f = document.createElement('span');
+    f.className = 'flower';
+    f.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+    f.style.left = Math.random() * 100 + '%';
+    f.style.fontSize = (1 + Math.random() * 1.3) + 'rem';
+    f.style.animationDuration = (12 + Math.random() * 18) + 's';
+    f.style.animationDelay = (Math.random() * 15) + 's';
+    container.appendChild(f);
+  }
+})();
+
+// ===== ANDALUSIAN CORNER SVG SVG DECORATIONS =====
+const cornerSVG = `
+<svg viewBox="0 0 40 40">
+  <path d="M0,0 L40,0 L40,6 C22,6 6,22 6,40 L0,40 Z"/>
+  <circle cx="12" cy="12" r="3"/>
+</svg>`;
+
+function getCornerHTML() {
+  let html = '<div class="page-border"></div>';
+  const positions = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
+  positions.forEach(pos => {
+    html += `<div class="corner-decor ${pos}">${cornerSVG}</div>`;
+  });
+  return html;
+}
+
+// ===== STORY DATA =====
+const pages = [
+  { type: 'cover' },
+  {
+    type: 'story',
+    text: 'في عالمٍ مليءٍ بالحكايات، كانت هناك حكاية أجمل من أن تكون خيالًا... حكاية فتاة اسمها إسراء أشرف.\n\nلم تكن إسراء فتاة عادية تمرّ في الحياة مرور الكرام، بل كانت كالقمر في ليلة تمام، يلفت الانتباه بلطفٍ ورقة دون أن تتكلّف ذلك.\n\nحكايتها ليست من نسج الخيال، بل هي واقعٍ يتوهّج بنور الإيمان وحسن الخلق، فإذا ما قرأتَها، شعرتَ كأنك تقرأ صفحةً من كتاب الحياة نفسه.'
+  },
+  {
+    type: 'story',
+    text: 'إسراء أشرف... فتاةٌ وهبها الله جمالًا ساحرًا ورقيقًا، جمالًا لا يشبه إلا جمال الطبيعة حين تلبس ثوب الربيع.\n\nعيناها تحملان بريقًا هادئًا كبريق النجوم في سماء صافية، وابتسامتها تضيء المكان كما يضيء الصباح أول ما يطلّ.\n\nيقولون إن سندريلا كانت أجمل فتاة في قصص الغرب، لكن لو رأوا إسراء لقالوا: هذه أجمل، لأن جمالها ليس جمال ملامح فحسب، بل جمالٌ ينبع من أعماق روحها ويُشرق من قلبها قبل أن يظهر على وجهها.'
+  },
+  {
+    type: 'story',
+    text: 'وما أجمل تلك اللحظات حين تُمسك إسراء مصحفها الشريف وتبدأ في تلاوة القرآن الكريم...\n\nكأن الوقت يتوقف، والمكان من حولها يصبح أكثر سكينةً وهدوءًا. صوتها النقي يتردّد في المكان كأنه نداءٌ من السماء، آيةٌ تلو آية، كلمةً وراء كلمة، بترتيلٍ يهزّ القلب ويسكب فيه الطمأنينة.\n\nحين تقرأ إسراء القرآن، تشعر وكأن نورًا أنزل من السماء يستقرّ في المكان، لأن نور القرآن في قلبها هو أجمل ما يميزها وأعظم ما تملك. إنها حافظة لكتاب الله، حفظًا جعل كلامه يستقرّ في صدورها فصار جزءًا من روحها ونَفَسها.'
+  },
+  {
+    type: 'story',
+    text: 'لكن الجمال الحقيقي لإسراء لا يكمن في ملامحها الرقيقة فحسب، بل في قلبها الكبير وأخلاقها العالية.\n\nهادئةٌ بطبعها، محترمةٌ لكل من حولها، طيبةٌ حتى إن قلبها يسع الجميع. لا تردّ السيئة بالسيئة، ولا تُثير فتنةً بكلمة ولا نظرة. تبتسم في وجه كل من تقابله، وتُشعر مَن حولها بالدفء والأمان.\n\nإيمانها بالله عميقٌ راسخ، يتجلّى في صلاتها وخشوعها وتعاملها مع الناس. إنها لا تتكلّم عن الإيمان بلسانها فحسب، بل تعيشه في كل لحظة من حياتها، فيصبح دينها أخلاقًا وأخلاقها دينًا.'
+  },
+  {
+    type: 'story',
+    text: 'في أروقة جامعة الأزهر الشريف، تلك الجامعة التي حملت لواء العلم والإيمان عبر القرون، تسير إسراء بخطوات واثقة وهادئة.\n\nهي طالبة في كلية التجارة بجامعة الأزهر، تجمع بين علم الدنيا وعلم الدين، فتدرس المحاسبة والاقتصاد بنفس الشغف الذي تدرس به كتاب ربها.\n\nزملاؤها يحبونها ويحترمونها، لأنها تجمع بين الجدّ في الدراسة واللطف في المعاملة. لا ترى في الدراسة عبئًا، بل تراها طريقًا نحو مستقبلٍ مشرق تبنيه بيديها، مدعومةً بإيمانها بالله وتوكلها عليه.'
+  },
+  {
+    type: 'story',
+    text: 'إسراء لا تحلم فقط، بل تعمل من أجل أحلامها. طموحها نابع من إيمانها بأن الله لا يضيع أجر من أحسن عملًا.\n\nتتخيّل مستقبلًا تكون فيه امرأة ناجحة، مؤثّرة في مجتمعها، تحمل خيرًا لمن حولها. تريد أن تكون نموذجًا يحتذى به، فتاةٌ تجمع بين جمال الروح وجمال العقل وجمال الإيمان.\n\nوكل خطوة تخطوها نحو هدفها، تضعها في ميزان حسناتها، لأنها تعلم أن النية الحسنة والعمل الصادق هما مفتاح كل توفيق. إسراء لا تنتظر القدر، بل تصنعه بصبرها وجدّها وإيمانها.'
+  },
+  {
+    type: 'story',
+    text: 'إن أجمل ما في إسراء أنها عاشت قول الله تعالى: «وَمَن يَتَقِّ الله يَجْعَل لَهُ مَخْرَجًا وَيَرْزُقهُ مِنْ حَيثُ لا يَحْتَسِبُ».\n\nتقواها ليست تقيّة الخوف، بل تقيّة الحب والحياء من الله. تتعامل مع دنياها بعقلٍ راجح وقلبٍ سليم، فلا تلهث وراء الزائل، ولا تنسى الباقي.\n\nفي وقتٍ كثُر فيه الضجيج والصخب، تظلّ إسراء كالنسيم العليل، يمرّ برفقٍ فيترك أثرًا طيبًا. إنها تذكّرنا بأن الجمال الحقيقي ليس ما تراه العيون، بل ما تشعر به القلوب.'
+  },
+  {
+    type: 'end',
+    text: 'إسراء أشرف... فتاةٌ لو عرفتها لقلت: إنها حقًا أجمل من سندريلا.\n\nليس لأن ملامحها تُشبه ملامح أميرات القصص، بل لأن قلبها أكبر من كل القصص، وإيمانها أعمق من كل البحار، وأخلاقها أثمن من كل الجواهر.\n\nفلتكن إسراء دائمًا كما هي: جميلة الروح، نقية القلب، قوية الإيمان... ولتظلّ دائمًا حافظة كتاب الله، وسفيرة خيرٍ أينما حلّت.\n\nفي النهاية... أجمل ما في القصة أنها ليست خيالًا، بل هي حقيقةٌ يعيشها كل من عرف إسراء أشرف.'
+  }
+];
+
+// ===== STATE =====
+let currentPage = 0;
+let isAnimating = false;
+let typingTimeout = null;
+
+// ===== DOM =====
+const bookContainer = document.getElementById('bookContainer');
+const progressBar = document.getElementById('progressBar');
+const navButtons = document.getElementById('navButtons');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const loadingOverlay = document.getElementById('loadingOverlay');
+
+// ===== BUILD PAGES =====
+function buildBook() {
+  pages.forEach((pg, i) => {
+    const el = document.createElement('div');
+    el.className = 'page';
+    el.id = 'page-' + i;
+
+    const decor = getCornerHTML();
+
+    if (pg.type === 'cover') {
+      el.innerHTML = 
+        decor +
+        '<div class="page-content cover-content">' +
+          '<div class="cover-arch"><span style="font-size:2.8rem; color:var(--gold);">❖</span></div>' +
+          '<h1 class="cover-title">إسراء أشرف<span class="highlight">حكاية أجمل من سندريلا</span></h1>' +
+          '<div class="cover-line"></div>' +
+          '<p class="cover-subtitle">قصةٌ واقعية يتوهّج فيها نور الإيمان 🌸</p>' +
+          '<button class="start-btn" id="startBtn">ابدأي القراءة</button>' +
+        '</div>' +
+        '<div class="page-number"></div>';
+    } else if (pg.type === 'end') {
+      el.innerHTML =
+        decor +
+        '<div class="page-content end-content">' +
+          '<div class="page-ornament">❖ ✦ ❖</div>' +
+          '<div class="story-text" id="text-' + i + '"></div>' +
+          '<div class="page-ornament">❖ ✦ ❖</div>' +
+          '<div class="end-message">~ تمت الحكاية بحمد الله ~</div>' +
+        '</div>' +
+        '<div class="page-number">صفحة ' + i + ' من ' + (pages.length - 1) + '</div>';
+    } else {
+      el.innerHTML =
+        decor +
+        '<div class="page-content">' +
+          '<div class="story-text" id="text-' + i + '"></div>' +
+        '</div>' +
+        '<div class="page-number">صفحة ' + i + ' من ' + (pages.length - 1) + '</div>';
+    }
+
+    bookContainer.appendChild(el);
+  });
+
+  // Set initial visibility
+  for (let i = 0; i < pages.length; i++) {
+    const el = document.getElementById('page-' + i);
+    el.className = (i === 0) ? 'page active' : 'page hidden-right';
+  }
+
+  // Add tap zones
+  const tapLeft = document.createElement('div');
+  tapLeft.className = 'tap-zone left';
+  tapLeft.addEventListener('click', () => goTo(currentPage + 1));
+
+  const tapRight = document.createElement('div');
+  tapRight.className = 'tap-zone right';
+  tapRight.addEventListener('click', () => goTo(currentPage - 1));
+
+  bookContainer.appendChild(tapLeft);
+  bookContainer.appendChild(tapRight);
+
+  // Bind Start Button
+  const startBtn = document.getElementById('startBtn');
+  if (startBtn) {
+    startBtn.addEventListener('click', function() {
+      goTo(1);
+      navButtons.classList.add('visible');
+    });
+  }
+}
+
+// ===== NAVIGATION =====
+function goTo(target) {
+  if (isAnimating) return;
+  if (target < 0 || target >= pages.length) return;
+  if (target === currentPage) return;
+
+  isAnimating = true;
+
+  if (typingTimeout) {
+    clearTimeout(typingTimeout);
+    typingTimeout = null;
+  }
+
+  const dir = target > currentPage ? 'fwd' : 'back';
+  const curEl = document.getElementById('page-' + currentPage);
+  const tgtEl = document.getElementById('page-' + target);
+
+  const zones = bookContainer.querySelectorAll('.tap-zone');
+  zones.forEach(z => z.style.pointerEvents = 'none');
+
+  curEl.className = 'page ' + (dir === 'fwd' ? 'flip-out' : 'flip-in');
+  
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      tgtEl.className = 'page active';
+    });
+  });
+
+  currentPage = target;
+  updateProgress();
+  updateBtns();
+
+  setTimeout(() => {
+    curEl.className = 'page ' + (dir === 'fwd' ? 'hidden-left' : 'hidden-right');
+    isAnimating = false;
+    zones.forEach(z => z.style.pointerEvents = 'auto');
+
+    if (pages[currentPage].type !== 'cover') {
+      startTyping(currentPage);
+    }
+  }, 680);
+}
+
+// ===== TYPEWRITER =====
+function startTyping(idx) {
+  const pg = pages[idx];
+  const el = document.getElementById('text-' + idx);
+  if (!el || !pg.text) return;
+
+  if (el.dataset.done === '1') {
+    el.innerHTML = buildHTML(pg.text);
+    return;
+  }
+
+  el.innerHTML = '<span class="typed-cursor"></span>';
+  let pos = 0;
+  const txt = pg.text;
+
+  function tick() {
+    if (pos < txt.length) {
+      pos++;
+      const partial = txt.substring(0, pos);
+      el.innerHTML = buildHTML(partial) + '<span class="typed-cursor"></span>';
+
+      const wrap = el.parentElement;
+      if (wrap) wrap.scrollTop = wrap.scrollHeight;
+
+      let d = 15;
+      const c = txt[pos - 1];
+      if (c === ' ') d = 10;
+      else if (c === '،' || c === '.' || c === '…') d = 70;
+      else if (c === '؟' || c === '؛') d = 60;
+      else if (c === '\n') d = 30;
+
+      typingTimeout = setTimeout(tick, d);
+    } else {
+      el.innerHTML = buildHTML(txt);
+      el.dataset.done = '1';
+      typingTimeout = null;
+    }
+  }
+
+  tick();
+}
+
+// ===== TEXT FORMATTING =====
+function buildHTML(raw) {
+  return '<p>' + raw.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>') + '</p>';
+}
+
+// ===== UI UPDATES =====
+function updateProgress() {
+  const pct = (currentPage / (pages.length - 1)) * 100;
+  progressBar.style.width = pct + '%';
+}
+
+function updateBtns() {
+  prevBtn.disabled = (currentPage <= 0);
+  nextBtn.disabled = (currentPage >= pages.length - 1);
+}
+
+// ===== EVENTS =====
+prevBtn.addEventListener('click', () => goTo(currentPage - 1));
+nextBtn.addEventListener('click', () => goTo(currentPage + 1));
+
+// Keyboard
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') goTo(currentPage + 1);
+  else if (e.key === 'ArrowRight') goTo(currentPage - 1);
+});
+
+// Touch Swipe
+let tx = 0;
+bookContainer.addEventListener('touchstart', function(e) {
+  tx = e.changedTouches[0].clientX;
+}, { passive: true });
+
+bookContainer.addEventListener('touchend', function(e) {
+  const dx = tx - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 40) {
+    if (dx > 0) goTo(currentPage + 1);
+    else goTo(currentPage - 1);
+  }
+}, { passive: true });
+
+// ===== INIT =====
+window.addEventListener('load', function() {
+  buildBook();
+  updateProgress();
+  updateBtns();
+
+  setTimeout(function() {
+    var btn = document.getElementById('startBtn');
+    if (btn) btn.classList.add('visible');
+  }, 600);
+
+  setTimeout(function() {
+    loadingOverlay.classList.add('fade-out');
+    setTimeout(function() { loadingOverlay.remove(); }, 600);
+  }, 400);
+
+  if ('ontouchstart' in window) {
+    setTimeout(function() {
+      var h = document.getElementById('touchHint');
+      if (h) h.style.display = 'block';
+      setTimeout(function() { if (h) h.remove(); }, 4000);
+    }, 2500);
+  }
+});
+</script>
+</body>
+</html>
